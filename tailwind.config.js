@@ -16,8 +16,16 @@ module.exports = {
       almostWhite: '#F5F5F5',
       almostBlack: '#4B4B4B',
       contrastMain: '#9FE6E2',
+      error: '#D65C5C',
     },
-    extend: {},
+    extend: {
+      fontSize: {
+        exs: ['10px', '14px'],
+      },
+      screens: {
+        xs: '400px',
+      },
+    },
   },
   variants: {
     extend: {

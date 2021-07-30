@@ -2,14 +2,13 @@ import Papa from 'papaparse';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-interface Error {
-  message: string;
+interface Props {
+  setCsvData: any;
+  setErrors: any;
 }
 
-const UploadBlock = () => {
-  const [errors, setErrors] = useState<Error | null>(null);
+const UploadBlock = ({ setErrors, setCsvData }: Props) => {
   const [Highlighted, setHighlighted] = useState(false);
-  const [csvData, setCsvData] = useState({});
   const csvAccepted =
     '.csv, text/csv, application/vnd.ms-excel, application/csv, text/x-csv, application/x-csv, text/comma-separated-values, text/x-comma-separated-values';
   // accept: csvAccepted,
@@ -22,7 +21,8 @@ const UploadBlock = () => {
     Papa.parse(file, {
       complete: function (results) {
         if (results.data.length > 20) {
-          setErrors({ message: '' });
+          setErrors({ message: 'file schould contain no more than 20 rows' });
+          return;
         }
         console.log(results.data);
 
