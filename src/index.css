@@ -12,7 +12,7 @@
 }
 
 .category-header {
-  @apply flex justify-between flex-col text-exs  px-1 py-2 items-center border-black bg-almostWhite xs:flex-row sm:text-lg  sm:px-2 sm:py-4  lg:text-2xl relative;
+  @apply capitalize flex justify-between flex-col text-exs w-full  px-1 py-2 items-center border-black bg-almostWhite xs:flex-row sm:text-lg  sm:px-2 md:py-3  lg:text-2xl relative;
 }
 
 .margin-right-zero {
@@ -21,4 +21,8 @@
 
 .rotated {
   transform: rotate(180deg);
+}
+
+.ReactCollapse--collapse {
+  transition: height 500ms;
 }

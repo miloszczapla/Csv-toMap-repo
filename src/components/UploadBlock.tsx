@@ -1,6 +1,8 @@
 import Papa from 'papaparse';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import handleErrors from '../helpclasses/handleErrors';
+import { Errors } from '../helpclasses/types';
 
 interface Props {
   setCsvData: any;
@@ -18,13 +20,15 @@ const UploadBlock = ({ setErrors, setCsvData }: Props) => {
     setHighlighted(false);
     console.log('file', file);
 
+    const errMessage = 'file schould contain no more than 20 rows';
+
     Papa.parse(file, {
       complete: function (results) {
         if (results.data.length > 20) {
-          setErrors({ message: 'file schould contain no more than 20 rows' });
-          return;
+          handleErrors(errMessage, setErrors);
+        } else {
+          handleErrors(errMessage, setErrors, true);
         }
-        console.log(results.data);
 
         setCsvData(results.data);
       },

@@ -1,5 +1,5 @@
 export interface Errors {
-  message: string;
+  messages: string[];
 }
 
 export interface SortedDataArray {

@@ -6,16 +6,15 @@ import UploadBlock from './components/UploadBlock';
 import { Errors, SortedData, SortedDataArray } from './helpclasses/types';
 
 function App() {
-  const [errors, setErrors] = useState<Errors | null>(null);
+  const [errors, setErrors] = useState<Errors>({ messages: [] });
   const [csvData, setCsvData] = useState<[] | null>([]);
   const [sortedData, setSortedData] = useState<SortedData[] | null>(null);
 
   return (
-    <div className='flex flex-col items-center '>
+    <div className='flex flex-col items-center  font-Roboto'>
       <UploadBlock setErrors={setErrors} setCsvData={setCsvData} />
-      {csvData && <CsvTable csvData={csvData} />}
-      {sortedData && <Nap sortedData={sortedData} />}
-
+      {csvData && <CsvTable setErrors={setErrors} csvData={csvData} />}
+      {sortedData && !errors.messages && <Nap sortedData={sortedData} />}
       <ErrorMessage errors={errors} />
     </div>
   );

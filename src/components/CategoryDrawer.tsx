@@ -1,30 +1,38 @@
 import React, { useEffect, useState } from 'react';
 
 interface Props {
-  categories: string[];
+  avaibleCategories: string[];
   setIsOpen: any;
   id: number;
-  isOpen: boolean;
+  setPickedCategory: any;
+  setAvaibleCategories: any;
+  setColOrder: any;
 }
 
-const CategoryDrawer = ({ categories, setIsOpen, id, isOpen }: Props) => {
-  console.log('draver', categories);
-
+const CategoryDrawer = ({
+  avaibleCategories,
+  setIsOpen,
+  id,
+  setPickedCategory,
+  setColOrder,
+}: Props) => {
   const handleClick = (e: any) => {
-    // console.log('click', click);
-
-    console.log(e.target.textContent);
+    const pickedCategory = e.target.textContent;
+    setPickedCategory(pickedCategory);
+    setColOrder((oldOrder: string[]) => {
+      oldOrder[id] = pickedCategory;
+      return [...oldOrder];
+    });
   };
 
   return (
     <div
       onClick={() => {
         setIsOpen(false);
-        console.log('czy zamkniete', isOpen);
       }}
       className='absolute left-0 right-0 top-full  text-contrastMain flex flex-col gap-1'
     >
-      {categories.map((category) => (
+      {avaibleCategories.map((category) => (
         <div
           onClick={handleClick}
           key={category + id}
