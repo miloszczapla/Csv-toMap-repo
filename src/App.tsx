@@ -3,7 +3,7 @@ import CsvTable from './components/CsvTable';
 import ErrorMessage from './components/ErrorMessage';
 import Nap from './components/Nap';
 import UploadBlock from './components/UploadBlock';
-import { Errors, SortedData, SortedDataArray } from './helpclasses/types';
+import { Errors, SortedData } from './helpclasses/types';
 
 function App() {
   const [errors, setErrors] = useState<Errors>({ messages: [] });

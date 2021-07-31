@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CategoryDrawer from './CategoryDrawer';
-import { Collapse, UnmountClosed } from 'react-collapse';
+import { UnmountClosed } from 'react-collapse';
 
 interface Props {
   avaibleCategories: string[];

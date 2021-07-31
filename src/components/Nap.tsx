@@ -1,5 +1,5 @@
 import React from 'react';
-import { SortedData, SortedDataArray } from '../helpclasses/types';
+import { SortedData } from '../helpclasses/types';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 interface Props {

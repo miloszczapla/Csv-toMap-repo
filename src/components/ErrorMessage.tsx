@@ -1,4 +1,3 @@
-import React from 'react';
 import { Errors } from '../helpclasses/types';
 
 interface Props {
@@ -6,8 +5,6 @@ interface Props {
 }
 
 const ErrorMessage = ({ errors }: Props) => {
-  console.log('błedy do wyświetlenia', errors);
-
   return (
     <div className='text-error text-2xl'>
       {errors.messages && errors.messages.map((meassage) => meassage)}
