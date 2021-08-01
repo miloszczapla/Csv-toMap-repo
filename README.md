@@ -2,6 +2,9 @@
 
 After uploading Csv file with 5 colums, create map with point matching row of informations
 
+site deploy:
+https://csv-to-map-places.netlify.app/
+
 graphic design:
 https://www.figma.com/file/VcNNBYzlUET6Wlh99qZ3RA/CSV-to-map?node-id=0%3A1
 

@@ -10,6 +10,7 @@ interface Props {
 
 const UploadBlock = ({ setErrors, setCsvData }: Props) => {
   const [Highlighted, setHighlighted] = useState(false);
+  //list of files thgat are acceptable
   const csvAccepted =
     '.csv, text/csv, application/vnd.ms-excel, application/csv, text/x-csv, application/x-csv, text/comma-separated-values, text/x-comma-separated-values';
 
@@ -17,17 +18,10 @@ const UploadBlock = ({ setErrors, setCsvData }: Props) => {
     const file = acceptedFile[0];
     setHighlighted(false);
 
-    const errMessage = 'file schould contain no more than 20 rows';
-
     Papa.parse(file, {
+      encoding: 'utf-8',
       skipEmptyLines: true,
       complete: function (results) {
-        if (results.data.length > 20) {
-          handleErrors(errMessage, setErrors);
-        } else {
-          handleErrors(errMessage, setErrors, true);
-        }
-
         setCsvData(results.data);
       },
     });

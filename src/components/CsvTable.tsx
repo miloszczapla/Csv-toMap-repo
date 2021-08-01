@@ -5,7 +5,7 @@ import CategoryHeader from './CategoryHeader';
 import ListOfElements from './ListOfElements';
 
 interface Props {
-  csvData: [] | null;
+  csvData: any[] | null;
   setErrors: any;
 }
 

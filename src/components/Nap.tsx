@@ -4,7 +4,7 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { GOOGLE_API_KEY } from '../helpclasses/globalVariables';
 
 interface Props {
-  csvData: [] | null;
+  csvData: any[] | null;
   sortedData: SortedData;
 }
 
@@ -32,6 +32,7 @@ const Nap = ({ sortedData, csvData }: Props) => {
 
   useEffect(() => {
     csvData?.forEach(async (row: []) => {
+      //creating colors for each category
       if (!categoryColors[row[sortedData.category]]) {
         const randomColor =
           '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -45,13 +46,15 @@ const Nap = ({ sortedData, csvData }: Props) => {
         });
       }
 
-      const res = await fetch(
+      //fetching places cordinates
+      const link =
         'https://maps.googleapis.com/maps/api/geocode/json?' +
-          `address=${row[sortedData.address]},${row[sortedData.city]},${
-            row[sortedData.state]
-          },${row[sortedData.zip]}, ` +
-          `&key=${GOOGLE_API_KEY}`
-      );
+        `address=${row[sortedData.address]},${row[sortedData.city]},${
+          row[sortedData.state]
+        },${row[sortedData.zip]}, ` +
+        `&key=${GOOGLE_API_KEY}`;
+
+      const res = await fetch(link);
 
       const data = await res.json();
       data.category = row[sortedData.category];
@@ -86,13 +89,24 @@ const Nap = ({ sortedData, csvData }: Props) => {
       >
         {fetchedData.map((data: any) => {
           const color = categoryColors[data.category];
-          const position = data.results[0].geometry.location;
-          icon.fillColor = color;
-          console.log(icon);
+          const results = data.results[0];
+          if (results) {
+            const position = results.geometry.location;
+            const title = results.formatted_address;
+            icon.fillColor = color;
 
-          return <Marker onLoad={onLoad} position={position} icon={icon} />;
+            //create marker for every place in the file
+            return (
+              <Marker
+                key={title + color}
+                onLoad={onLoad}
+                position={position}
+                icon={icon}
+                title={title}
+              />
+            );
+          } else return '';
         })}
-        {/* <Marker onLoad={onLoad} position={position} icon={icon} /> */}
 
         {/* Child components, such as markers, info windows, etc. */}
         <></>
