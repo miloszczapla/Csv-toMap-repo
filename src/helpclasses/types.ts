@@ -7,9 +7,13 @@ export interface SortedDataArray {
 }
 
 export interface SortedData {
-  city: string;
-  state: string;
-  zip: string;
-  address: string;
-  category: string;
+  city: number;
+  state: number;
+  zip: number;
+  address: number;
+  category: number;
+}
+
+export interface IterableObject {
+  [name: string]: any;
 }

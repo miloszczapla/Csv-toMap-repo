@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
+import { CategoryContext } from '../helpclasses/contexts';
 import handleErrors from '../helpclasses/handleErrors';
 import CategoryHeader from './CategoryHeader';
 import ListOfElements from './ListOfElements';
@@ -9,17 +10,8 @@ interface Props {
 }
 
 const CsvTable = ({ csvData, setErrors }: Props) => {
-  console.log(csvData);
-
-  const [avaibleCategories, setAvaibleCategories] = useState([
-    'city',
-    'state',
-    'zip',
-    'address',
-    'category',
-  ]);
-
-  const [colOrder, setColOrder] = useState([]);
+  const { avaibleCategories, colOrder, setColOrder } =
+    useContext(CategoryContext);
 
   useEffect(() => {
     const colSet = new Set();
@@ -40,23 +32,17 @@ const CsvTable = ({ csvData, setErrors }: Props) => {
       handleErrors(errMessage, setErrors);
     } else {
       handleErrors(errMessage, setErrors, true);
-      // if (!colOrder.includes(undefined)) {
-      //   setSortedData();
-      // }
     }
   }, [colOrder]);
 
   return (
     <div className='flex gap-0 relative '>
-      {avaibleCategories.map((category, id) => (
+      {avaibleCategories.map((_: any, id: number) => (
         <div
           className='flex flex-col xs:w-18  sm:w-28 md:w-36 lg:w-44 '
           key={id}
         >
           <CategoryHeader
-            avaibleCategories={avaibleCategories}
-            setColOrder={setColOrder}
-            setAvaibleCategories={setAvaibleCategories}
             id={id}
             isLast={avaibleCategories.length === id + 1}
           />

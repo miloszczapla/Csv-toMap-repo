@@ -16,7 +16,6 @@ const UploadBlock = ({ setErrors, setCsvData }: Props) => {
   const onDrop = useCallback(async (acceptedFile) => {
     const file = acceptedFile[0];
     setHighlighted(false);
-    console.log('file', file);
 
     const errMessage = 'file schould contain no more than 20 rows';
 
@@ -39,9 +38,6 @@ const UploadBlock = ({ setErrors, setCsvData }: Props) => {
     maxFiles: 1,
     accept: csvAccepted,
   });
-
-  // const file = acceptedFiles[0];
-  // console.log(file);
 
   return (
     <div

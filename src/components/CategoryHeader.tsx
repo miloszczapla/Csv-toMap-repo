@@ -1,22 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import CategoryDrawer from './CategoryDrawer';
 import { UnmountClosed } from 'react-collapse';
 
 interface Props {
-  avaibleCategories: string[];
   id: number;
   isLast: boolean;
-  setAvaibleCategories: any;
-  setColOrder: any;
 }
 
-const CategoryHeader = ({
-  avaibleCategories,
-  id,
-  isLast,
-  setAvaibleCategories,
-  setColOrder,
-}: Props) => {
+const CategoryHeader = ({ id, isLast }: Props) => {
   const defaultCategory = `Column ${id + 1}`;
   const [pickedCategory, setPickedCategory] = useState(defaultCategory);
   const [isOpen, setIsOpen] = useState(false);
@@ -50,11 +41,8 @@ const CategoryHeader = ({
       <UnmountClosed isOpened={isOpen}>
         {isOpen && (
           <CategoryDrawer
-            setAvaibleCategories={setAvaibleCategories}
             setPickedCategory={setPickedCategory}
-            avaibleCategories={avaibleCategories}
             setIsOpen={setIsOpen}
-            setColOrder={setColOrder}
             id={id}
           />
         )}
