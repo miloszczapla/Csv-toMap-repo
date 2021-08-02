@@ -1,1 +1,6 @@
-{}
+{
+  "env": {
+    "ADDRESS": "https://csv-to-map-places.netlify.app/",
+    "LOCAL_ADDRESS": "http://localhost:3000/"
+  }
+}

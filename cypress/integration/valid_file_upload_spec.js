@@ -6,14 +6,14 @@ const errors = [
   'file schould contain no more than 20 rows',
   `every row schould have 5 columns maximum`,
 ];
-const time = 3000;
+const WAIT_TIME = 5000;
 
 const rowOfFile = ['53-609', 'Fabryczna 31', 'Wroclaw', 'Dolnyslask', 'school'];
 
 describe('check home page csv valid file handling ', () => {
   it('upload file and move toward map trigger', () => {
     expect(true).to.equal(true);
-    cy.visit('http://localhost:3000/');
+    cy.visit(Cypress.env('LOCAL_ADDRESS'));
     cy.contains('Upload CSV file').attachFile(file1, fileAttachmentOptions);
 
     for (let index = 0; index < rowOfFile.length; index++) {
@@ -32,7 +32,7 @@ describe('check home page csv valid file handling ', () => {
     }
   });
   it('be sure there are no error and there is map', () => {
-    cy.wait(time);
+    cy.wait(WAIT_TIME);
     cy.get('div[aria-roledescription="map"]');
 
     for (let index = 0; index < errors.length; index++) {

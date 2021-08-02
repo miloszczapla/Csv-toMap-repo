@@ -11,13 +11,19 @@ interface Props {
 
 const UploadBlock = ({ setErrors, setCsvData, avaibleCategories }: Props) => {
   const [Highlighted, setHighlighted] = useState(false);
-  //list of files thgat are acceptable
-  const csvAccepted =
-    '.csv, text/csv, application/vnd.ms-excel, application/csv, text/x-csv, application/x-csv, text/comma-separated-values, text/x-comma-separated-values';
+
+  const acceptedFileType = '.csv';
 
   const onDrop = useCallback(async (acceptedFile) => {
     const file = acceptedFile[0];
     setHighlighted(false);
+    let errMessage = `file schold be of type: "${acceptedFileType}"`;
+    if (!file) {
+      handleErrors(errMessage, setErrors);
+      return;
+    } else {
+      handleErrors(errMessage, setErrors, true);
+    }
 
     Papa.parse(file, {
       encoding: 'utf-8',
@@ -27,7 +33,7 @@ const UploadBlock = ({ setErrors, setCsvData, avaibleCategories }: Props) => {
 
         //file data validation
         const avaibleCategoriesLenght = avaibleCategories.length;
-        let errMessage = `every row schould have  ${avaibleCategoriesLenght} columns maximum`;
+        errMessage = `every row schould have  ${avaibleCategoriesLenght} columns maximum`;
         data.forEach((row: any) => {
           if (row.length > avaibleCategoriesLenght) {
             handleErrors(errMessage, setErrors);
@@ -50,7 +56,7 @@ const UploadBlock = ({ setErrors, setCsvData, avaibleCategories }: Props) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     maxFiles: 1,
-    accept: csvAccepted,
+    accept: acceptedFileType,
   });
 
   return (
