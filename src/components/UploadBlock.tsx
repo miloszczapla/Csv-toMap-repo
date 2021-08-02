@@ -1,7 +1,6 @@
 import Papa from 'papaparse';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import handleErrors from '../helpclasses/handleErrors';
 
 interface Props {
   setCsvData: any;

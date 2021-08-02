@@ -13,15 +13,16 @@ const CsvTable = ({ csvData, setErrors }: Props) => {
   const { avaibleCategories, colOrder, setColOrder } =
     useContext(CategoryContext);
 
+  //making sure that every header is chose only once
   useEffect(() => {
     const colSet = new Set();
-    const withoutDuplicate = colOrder.map((category: string) => {
-      if (category) {
-        const duplicate = colSet.has(category);
-        colSet.add(category);
+    const withoutDuplicate = colOrder.map((header: string) => {
+      if (header) {
+        const duplicate = colSet.has(header);
+        colSet.add(header);
 
         if (!duplicate) {
-          return category;
+          return header;
         } else return 'duplicate';
       }
     });

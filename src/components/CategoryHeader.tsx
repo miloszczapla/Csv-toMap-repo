@@ -1,6 +1,5 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import CategoryDrawer from './CategoryDrawer';
-import { UnmountClosed } from 'react-collapse';
 
 interface Props {
   id: number;
@@ -38,15 +37,13 @@ const CategoryHeader = ({ id, isLast }: Props) => {
         />
       </svg>
 
-      <UnmountClosed isOpened={isOpen}>
-        {isOpen && (
-          <CategoryDrawer
-            setPickedCategory={setPickedCategory}
-            setIsOpen={setIsOpen}
-            id={id}
-          />
-        )}
-      </UnmountClosed>
+      {isOpen && (
+        <CategoryDrawer
+          setPickedCategory={setPickedCategory}
+          setIsOpen={setIsOpen}
+          id={id}
+        />
+      )}
     </div>
   );
 };
