@@ -6,14 +6,15 @@ const handleErrors = (
   deleteErr: boolean = false
 ) => {
   setErrors((oldErrors: Errors) => {
-    const errHook = oldErrors.messages;
-    if (deleteErr) {
-      errHook.splice(errHook.indexOf(errMessage), 1);
-      return { messages: errHook };
-    }
-    if (!errHook.includes(errMessage)) {
+    const errMessages = oldErrors.messages;
+
+    if (deleteErr && errMessages.includes(errMessage)) {
+      errMessages.splice(errMessages.indexOf(errMessage), 1);
+
+      return { messages: errMessages };
+    } else if (!errMessages.includes(errMessage) && !deleteErr) {
       return {
-        messages: [...errHook, errMessage],
+        messages: [...errMessages, errMessage],
       };
     }
     return oldErrors;

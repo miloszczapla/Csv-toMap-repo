@@ -25,26 +25,6 @@ function App() {
   );
 
   useEffect(() => {
-    //file data validation
-    csvData.forEach((row) => {
-      const avaibleCategoriesLenght = avaibleCategories.length;
-      const errMessage = `every row schould have  ${avaibleCategoriesLenght} columns maximum`;
-      if (row.length > avaibleCategoriesLenght) {
-        handleErrors(errMessage, setErrors);
-      } else {
-        handleErrors(errMessage, setErrors, true);
-      }
-    });
-    const errMessage = 'file schould contain no more than 20 rows';
-
-    if (csvData.length > 20) {
-      handleErrors(errMessage, setErrors);
-    } else {
-      handleErrors(errMessage, setErrors, true);
-    }
-  }, [csvData]);
-
-  useEffect(() => {
     //@ts-ignore
     setSortedData(() => {
       const sorted: IterableObject = {};
@@ -76,7 +56,11 @@ function App() {
 
   return (
     <div className='flex flex-col items-center  font-Roboto'>
-      <UploadBlock setErrors={setErrors} setCsvData={setCsvData} />
+      <UploadBlock
+        setErrors={setErrors}
+        setCsvData={setCsvData}
+        avaibleCategories={avaibleCategories}
+      />
       <CategoryContext.Provider
         value={{ avaibleCategories, colOrder, setColOrder }}
       >

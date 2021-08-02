@@ -27,12 +27,13 @@ const CsvTable = ({ csvData, setErrors }: Props) => {
       }
     });
 
-    const errMessage = 'headers have duplicates';
+    const errMessage1 = 'headers have duplicates';
 
     if (withoutDuplicate.includes('duplicate') && withoutDuplicate.length > 0) {
-      handleErrors(errMessage, setErrors);
+      handleErrors(errMessage1, setErrors);
     } else {
-      handleErrors(errMessage, setErrors, true);
+      console.log('wiadomość wysyłana', errMessage1);
+      handleErrors(errMessage1, setErrors, true);
     }
   }, [colOrder]);
 

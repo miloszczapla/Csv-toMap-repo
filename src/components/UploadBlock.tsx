@@ -1,13 +1,15 @@
 import Papa from 'papaparse';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import handleErrors from '../helpclasses/handleErrors';
 
 interface Props {
   setCsvData: any;
   setErrors: any;
+  avaibleCategories: string[];
 }
 
-const UploadBlock = ({ setErrors, setCsvData }: Props) => {
+const UploadBlock = ({ setErrors, setCsvData, avaibleCategories }: Props) => {
   const [Highlighted, setHighlighted] = useState(false);
   //list of files thgat are acceptable
   const csvAccepted =
@@ -21,7 +23,26 @@ const UploadBlock = ({ setErrors, setCsvData }: Props) => {
       encoding: 'utf-8',
       skipEmptyLines: true,
       complete: function (results) {
-        setCsvData(results.data);
+        const data = results.data;
+
+        //file data validation
+        const avaibleCategoriesLenght = avaibleCategories.length;
+        let errMessage = `every row schould have  ${avaibleCategoriesLenght} columns maximum`;
+        data.forEach((row: any) => {
+          if (row.length > avaibleCategoriesLenght) {
+            handleErrors(errMessage, setErrors);
+          } else {
+            handleErrors(errMessage, setErrors, true);
+          }
+        });
+
+        errMessage = 'file schould contain no more than 20 rows';
+        if (data.length > 20) {
+          handleErrors(errMessage, setErrors);
+        } else {
+          handleErrors(errMessage, setErrors, true);
+        }
+        setCsvData(data);
       },
     });
   }, []);
