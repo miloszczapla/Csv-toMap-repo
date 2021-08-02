@@ -5,7 +5,6 @@ import Nap from './components/Nap';
 import UploadBlock from './components/UploadBlock';
 import { CategoryContext } from './helpclasses/contexts';
 import { Errors, IterableObject, SortedData } from './helpclasses/types';
-import handleErrors from './helpclasses/handleErrors';
 
 function App() {
   const [errors, setErrors] = useState<Errors>({ messages: [] });

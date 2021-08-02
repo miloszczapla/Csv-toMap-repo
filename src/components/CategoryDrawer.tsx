@@ -8,8 +8,7 @@ interface Props {
 }
 
 const CategoryDrawer = ({ setIsOpen, id, setPickedCategory }: Props) => {
-  const { avaibleCategories, colOrder, setColOrder } =
-    useContext(CategoryContext);
+  const { avaibleCategories, setColOrder } = useContext(CategoryContext);
   const handleClick = (e: any) => {
     const pickedCategory = e.target.textContent;
     setPickedCategory(pickedCategory);

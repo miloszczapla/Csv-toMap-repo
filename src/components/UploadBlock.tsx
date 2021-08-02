@@ -14,44 +14,47 @@ const UploadBlock = ({ setErrors, setCsvData, avaibleCategories }: Props) => {
 
   const acceptedFileType = '.csv';
 
-  const onDrop = useCallback(async (acceptedFile) => {
-    const file = acceptedFile[0];
-    setHighlighted(false);
-    let errMessage = `file schold be of type: "${acceptedFileType}"`;
-    if (!file) {
-      handleErrors(errMessage, setErrors);
-      return;
-    } else {
-      handleErrors(errMessage, setErrors, true);
-    }
+  const onDrop = useCallback(
+    async (acceptedFile) => {
+      const file = acceptedFile[0];
+      setHighlighted(false);
+      let errMessage = `file schold be of type: "${acceptedFileType}"`;
+      if (!file) {
+        handleErrors(errMessage, setErrors);
+        return;
+      } else {
+        handleErrors(errMessage, setErrors, true);
+      }
 
-    Papa.parse(file, {
-      encoding: 'utf-8',
-      skipEmptyLines: true,
-      complete: function (results) {
-        const data = results.data;
+      Papa.parse(file, {
+        encoding: 'utf-8',
+        skipEmptyLines: true,
+        complete: function (results) {
+          const data = results.data;
 
-        //file data validation
-        const avaibleCategoriesLenght = avaibleCategories.length;
-        errMessage = `every row schould have  ${avaibleCategoriesLenght} columns maximum`;
-        data.forEach((row: any) => {
-          if (row.length > avaibleCategoriesLenght) {
+          //file data validation
+          const avaibleCategoriesLenght = avaibleCategories.length;
+          errMessage = `every row schould have  ${avaibleCategoriesLenght} columns maximum`;
+          data.forEach((row: any) => {
+            if (row.length > avaibleCategoriesLenght) {
+              handleErrors(errMessage, setErrors);
+            } else {
+              handleErrors(errMessage, setErrors, true);
+            }
+          });
+
+          errMessage = 'file schould contain no more than 20 rows';
+          if (data.length > 20) {
             handleErrors(errMessage, setErrors);
           } else {
             handleErrors(errMessage, setErrors, true);
           }
-        });
-
-        errMessage = 'file schould contain no more than 20 rows';
-        if (data.length > 20) {
-          handleErrors(errMessage, setErrors);
-        } else {
-          handleErrors(errMessage, setErrors, true);
-        }
-        setCsvData(data);
-      },
-    });
-  }, []);
+          setCsvData(data);
+        },
+      });
+    },
+    [setHighlighted, setCsvData, avaibleCategories, setErrors]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,

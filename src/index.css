@@ -30,3 +30,7 @@
   max-height: 450px;
   @apply m-9;
 }
+
+.max-width-fifth {
+  max-width: 20vw;
+}

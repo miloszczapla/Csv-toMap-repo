@@ -10,8 +10,7 @@ interface Props {
 }
 
 const CsvTable = ({ csvData, setErrors }: Props) => {
-  const { avaibleCategories, colOrder, setColOrder } =
-    useContext(CategoryContext);
+  const { avaibleCategories, colOrder } = useContext(CategoryContext);
 
   //making sure that every header is chose only once
   useEffect(() => {
@@ -23,7 +22,8 @@ const CsvTable = ({ csvData, setErrors }: Props) => {
 
         if (!duplicate) {
           return header;
-        } else return 'duplicate';
+        }
+        return 'duplicate';
       }
     });
 
@@ -41,7 +41,7 @@ const CsvTable = ({ csvData, setErrors }: Props) => {
     <div className='flex gap-0 relative '>
       {avaibleCategories.map((_: any, id: number) => (
         <div
-          className='flex flex-col xs:w-18  sm:w-28 md:w-36 lg:w-44 '
+          className='max-width-fifth flex flex-col xs:w-18  sm:w-28 md:w-36 lg:w-44 '
           key={id}
         >
           <CategoryHeader
